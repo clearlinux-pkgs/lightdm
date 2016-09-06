@@ -2,3 +2,9 @@
 # This file contains pkgconfig build requirements that get picked up but are 
 # undesirable. One name per line, no whitespace.
 #
+Qt5Core
+Qt5DBus
+Qt5Gui
+QtCore
+QtDBus
+QtGui
