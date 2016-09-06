@@ -22,8 +22,6 @@ liblightdm-gobject-1.so.0:lightdm_greeter_connect_to_daemon_sync
 liblightdm-gobject-1.so.0:lightdm_greeter_ensure_shared_data_dir
 liblightdm-gobject-1.so.0:lightdm_greeter_ensure_shared_data_dir_finish
 liblightdm-gobject-1.so.0:lightdm_greeter_ensure_shared_data_dir_sync
-liblightdm-gobject-1.so.0:lightdm_greeter_error_get_type
-liblightdm-gobject-1.so.0:lightdm_greeter_error_quark
 liblightdm-gobject-1.so.0:lightdm_greeter_get_authentication_user
 liblightdm-gobject-1.so.0:lightdm_greeter_get_autologin_guest_hint
 liblightdm-gobject-1.so.0:lightdm_greeter_get_autologin_timeout_hint

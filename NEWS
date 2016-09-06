@@ -1,15 +1,7 @@
-Overview of changes in lightdm 1.19.4
+Overview of changes in lightdm 1.18.3
 
-    * Fix various issues in new in-session greeter code
-    * Fix user list memory management exposed by use of in-session greeters
-    * Fix some spurious warnings in the log
-
-Overview of changes in lightdm 1.19.3
-
-    * Fix in-session greeters not working for greeter logins
-
-Overview of changes in lightdm 1.19.2
-
+    * Fix error that caused stdin to be closed. This seems to have lots of bad
+      side effects (greeter not working correctly, multi-seat failing).
     * Add support for greeters running inside sessions. This is enabled by
       setting X-LightDM-Allow-Greeter inside the session .desktop file.
       The session can then use liblightdm to connect one greeter to the
@@ -17,36 +9,24 @@ Overview of changes in lightdm 1.19.2
       (/var/run/lightdm/<user>/greeter-socket) that is accessible to any
       process run by that user. Consider controlling access to this socket
       using a MAC system such as AppArmor.
-    * Report errors for all liblightdm methods. This will require existing
-      greeters to update their API usage. The ABI is unchanged.
-    * Handle EAGAIN correctly when daemons communicate with the daemon.
-    * Drop support for mir-container sessions - no-one ever used these.
+    * Fix various memory management issues exposed by the use of in-session
+      greeters.
 
-Overview of changes in lightdm 1.19.1
+Overview of changes in lightdm 1.18.2
 
-    * Rename "xlocal" seat type to "local". Using "xlocal" will continue to work
-      but report a warning.
-    * Fix memory leaks
-    * Fix uninitialized memory errors
+    * Don't quit on SIGUSR1, SIGUSR2 or SIGHUP
     * Use MIR_SERVER_HOST_SOCKET instead of MIR_SOCKET to report compositor
       socket to sessions. This used to work but no longer works in Mir 0.21
-    * Allow XMir to run on the xlocal seat using the new x-server-backend=mir
-      option
-    * Use only a single compositor on local seats
+    * Use only a single compositor on xlocal seats
     * Fix Mir greeter log filename having "(null)" in the name
-    * Copy fcitx/mozc rules so session works when these aren't installed
-    * Revert lxsession change - it caused the AppArmor to fail to compile
+    * Set XDMCP hostname field in to system hostname or configured value
+    * Improve XDMCP IPv6 address selection
+    * Allow fcitx and mozc to run in guest session
+    * Fix uninitialized memory errors
 
-Overview of changes in lightdm 1.19.0
+Overview of changes in lightdm 1.18.1
 
     * Use /dev/tty0 instead of /dev/console for VT operations
-    * Don't quit on SIGUSR1, SIGUSR2 or SIGHUP
-    * Improve XDMCP IPv6 address selection
-    * Set XDMCP hostname field in to system hostname or configured value
-    * Allow fcitx and mozc to run in guest session
-    * Fix lxsession running in guest sessiono
-    * Drop support for legacy XMir
-    * Fix g_spawn compiler warning
 
 Overview of changes in lightdm 1.18.0
 

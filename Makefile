@@ -1,5 +1,5 @@
 PKG_NAME := lightdm
-URL := https://launchpad.net/lightdm/1.19/1.19.4/+download/lightdm-1.19.4.tar.xz
+URL := https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 ARCHIVES :=
 
 include ../common/Makefile.common
