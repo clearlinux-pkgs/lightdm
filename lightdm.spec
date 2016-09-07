@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 5
+Release  : 6
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source1  : lightdm.service
