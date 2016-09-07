@@ -1,0 +1,42 @@
+From a1deb4d47429ecbc8f537e0c53f272f11033a995 Mon Sep 17 00:00:00 2001
+From: Ikey Doherty <michael.i.doherty@intel.com>
+Date: Wed, 7 Sep 2016 14:50:58 +0100
+Subject: [PATCH 2/3] Explicitly provide a session wrapper script
+
+This script will be used by clr-desktop-defaults in the LightDM configuration
+to provide a sane wrapper for executing of the main session in an XSession
+configuration file, ensuring that the environment is also properly initialised.
+
+Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+---
+ src/Makefile.am     | 1 +
+ src/lightdm-wrapper | 6 ++++++
+ 2 files changed, 7 insertions(+)
+ create mode 100755 src/lightdm-wrapper
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index a36754c..8c5563a 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,5 +1,6 @@
+ sbin_PROGRAMS = lightdm
+ bin_PROGRAMS = dm-tool
++bin_SCRIPTS = lightdm-wrapper
+ 
+ lightdm_SOURCES = \
+ 	accounts.c \
+diff --git a/src/lightdm-wrapper b/src/lightdm-wrapper
+new file mode 100755
+index 0000000..ef04b14
+--- /dev/null
++++ b/src/lightdm-wrapper
+@@ -0,0 +1,6 @@
++#!/bin/bash
++
++source /usr/share/defaults/etc/profile
++
++exec $*
++
+-- 
+2.10.0
+
