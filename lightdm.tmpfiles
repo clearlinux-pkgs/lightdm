@@ -1,0 +1,2 @@
+d /var/lib/lightdm 0711 lightdm lightdm
+d /run/httpd - - - - -
