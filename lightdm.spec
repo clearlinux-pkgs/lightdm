@@ -4,10 +4,11 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 4
+Release  : 5
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source1  : lightdm.service
+Source2  : lightdm.tmpfiles
 Summary  : LightDM client library
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-3.0
@@ -132,6 +133,8 @@ rm -rf %{buildroot}
 %find_lang lightdm
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/lightdm.service
+mkdir -p %{buildroot}/usr/lib/tmpfiles.d
+install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/lightdm.conf
 ## make_install_append content
 install -D -d -m 00755 %{buildroot}/usr/lib/systemd/system/graphical.target.wants
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/displaymanager.service
@@ -153,6 +156,7 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 /usr/lib/systemd/system/displaymanager.service
 /usr/lib/systemd/system/graphical.target.wants/lightdm.service
 /usr/lib/systemd/system/lightdm.service
+/usr/lib/tmpfiles.d/lightdm.conf
 
 %files data
 %defattr(-,root,root,-)
