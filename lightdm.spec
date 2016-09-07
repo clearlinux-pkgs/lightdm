@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 6
+Release  : 7
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source1  : lightdm.service
@@ -98,6 +98,14 @@ Group: Documentation
 doc components for the lightdm package.
 
 
+%package extras
+Summary: extras components for the lightdm package.
+Group: Default
+
+%description extras
+extras components for the lightdm package.
+
+
 %package lib
 Summary: lib components for the lightdm package.
 Group: Libraries
@@ -153,8 +161,8 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 
 %files config
 %defattr(-,root,root,-)
-/usr/lib/systemd/system/displaymanager.service
-/usr/lib/systemd/system/graphical.target.wants/lightdm.service
+%exclude /usr/lib/systemd/system/displaymanager.service
+%exclude /usr/lib/systemd/system/graphical.target.wants/lightdm.service
 /usr/lib/systemd/system/lightdm.service
 /usr/lib/tmpfiles.d/lightdm.conf
 
@@ -203,6 +211,11 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 /usr/share/gtk-doc/html/lightdm-gobject-1/style.css
 /usr/share/gtk-doc/html/lightdm-gobject-1/up-insensitive.png
 /usr/share/gtk-doc/html/lightdm-gobject-1/up.png
+
+%files extras
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/displaymanager.service
+/usr/lib/systemd/system/graphical.target.wants/lightdm.service
 
 %files lib
 %defattr(-,root,root,-)
