@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 3
+Release  : 4
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source1  : lightdm.service
@@ -18,8 +18,11 @@ Requires: lightdm-data
 Requires: lightdm-doc
 Requires: lightdm-locales
 BuildRequires : Linux-PAM-dev
+BuildRequires : automake
+BuildRequires : automake-dev
 BuildRequires : docbook-xml
 BuildRequires : gettext
+BuildRequires : gettext-bin
 BuildRequires : gobject-introspection
 BuildRequires : gobject-introspection-dev
 BuildRequires : gtk-doc
@@ -28,8 +31,12 @@ BuildRequires : intltool
 BuildRequires : itstool
 BuildRequires : libgcrypt-dev
 BuildRequires : libgpg-error-dev
+BuildRequires : libtool
+BuildRequires : libtool-dev
 BuildRequires : libxslt-bin
+BuildRequires : m4
 BuildRequires : perl(XML::Parser)
+BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(gio-2.0)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(glib-2.0)
@@ -37,6 +44,9 @@ BuildRequires : pkgconfig(gobject-2.0)
 BuildRequires : pkgconfig(libxklavier)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xcb)
+Patch1: 0001-Use-Clear-Linux-stateless-directories-by-default.patch
+Patch2: 0002-Explicitly-provide-a-session-wrapper-script.patch
+Patch3: 0003-Disable-building-of-unused-yelp-documentation.patch
 
 %description
 No detailed description available
@@ -107,10 +117,13 @@ locales components for the lightdm package.
 
 %prep
 %setup -q -n lightdm-1.18.3
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 export LANG=C
-%configure --disable-static --with-greeter-session=lightdm-gtk-greeter
+%reconfigure --disable-static --with-greeter-session=lightdm-gtk-greeter
 make V=1  %{?_smp_mflags}
 
 %install
@@ -132,6 +145,7 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 %defattr(-,root,root,-)
 /usr/bin/dm-tool
 /usr/bin/lightdm
+/usr/bin/lightdm-wrapper
 /usr/libexec/lightdm-guest-session
 
 %files config
@@ -144,24 +158,11 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 %defattr(-,root,root,-)
 /usr/share/bash-completion/completions/dm-tool
 /usr/share/bash-completion/completions/lightdm
+/usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 /usr/share/gir-1.0/LightDM-1.gir
-/usr/share/help/C/lightdm/autologin.page
-/usr/share/help/C/lightdm/config.page
-/usr/share/help/C/lightdm/default-greeter.page
-/usr/share/help/C/lightdm/default-session.page
-/usr/share/help/C/lightdm/diagnostics.page
-/usr/share/help/C/lightdm/guest.page
-/usr/share/help/C/lightdm/index.page
-/usr/share/help/C/lightdm/legal.xml
-/usr/share/help/C/lightdm/local-sessions.page
-/usr/share/help/C/lightdm/remote-sessions.page
-/usr/share/help/C/lightdm/seat.page
-/usr/share/help/C/lightdm/standard-authentication.page
-/usr/share/help/C/lightdm/user-list.page
-/usr/share/help/C/lightdm/user-switching.page
-/usr/share/help/C/lightdm/vnc.page
-/usr/share/help/C/lightdm/write-greeter.page
-/usr/share/help/C/lightdm/xdmcp.page
+/usr/share/pam.d/lightdm
+/usr/share/pam.d/lightdm-autologin
+/usr/share/pam.d/lightdm-greeter
 
 %files dev
 %defattr(-,root,root,-)
