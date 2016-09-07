@@ -4,13 +4,15 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 2
+Release  : 3
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
+Source1  : lightdm.service
 Summary  : LightDM client library
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-3.0
 Requires: lightdm-bin
+Requires: lightdm-config
 Requires: lightdm-lib
 Requires: lightdm-data
 Requires: lightdm-doc
@@ -43,9 +45,18 @@ No detailed description available
 Summary: bin components for the lightdm package.
 Group: Binaries
 Requires: lightdm-data
+Requires: lightdm-config
 
 %description bin
 bin components for the lightdm package.
+
+
+%package config
+Summary: config components for the lightdm package.
+Group: Default
+
+%description config
+config components for the lightdm package.
 
 
 %package data
@@ -80,6 +91,7 @@ doc components for the lightdm package.
 Summary: lib components for the lightdm package.
 Group: Libraries
 Requires: lightdm-data
+Requires: lightdm-config
 
 %description lib
 lib components for the lightdm package.
@@ -98,13 +110,20 @@ locales components for the lightdm package.
 
 %build
 export LANG=C
-%configure --disable-static
+%configure --disable-static --with-greeter-session=lightdm-gtk-greeter
 make V=1  %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 %make_install
 %find_lang lightdm
+mkdir -p %{buildroot}/usr/lib/systemd/system
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/lightdm.service
+## make_install_append content
+install -D -d -m 00755 %{buildroot}/usr/lib/systemd/system/graphical.target.wants
+ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/displaymanager.service
+ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.wants/lightdm.service
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -114,6 +133,12 @@ rm -rf %{buildroot}
 /usr/bin/dm-tool
 /usr/bin/lightdm
 /usr/libexec/lightdm-guest-session
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/displaymanager.service
+/usr/lib/systemd/system/graphical.target.wants/lightdm.service
+/usr/lib/systemd/system/lightdm.service
 
 %files data
 %defattr(-,root,root,-)
