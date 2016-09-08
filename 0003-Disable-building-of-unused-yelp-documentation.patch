@@ -1,7 +1,7 @@
-From acdf605a1b44099b011f323ddd76c44bf4bc2260 Mon Sep 17 00:00:00 2001
+From 99f06b7bf9568c373e79da182cfc9e0d734bfb25 Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Wed, 7 Sep 2016 14:57:10 +0100
-Subject: [PATCH 3/3] Disable building of unused yelp documentation
+Subject: [PATCH 3/4] Disable building of unused yelp documentation
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 ---
