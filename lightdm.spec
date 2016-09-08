@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 7
+Release  : 8
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source1  : lightdm.service
@@ -48,6 +48,7 @@ BuildRequires : pkgconfig(xcb)
 Patch1: 0001-Use-Clear-Linux-stateless-directories-by-default.patch
 Patch2: 0002-Explicitly-provide-a-session-wrapper-script.patch
 Patch3: 0003-Disable-building-of-unused-yelp-documentation.patch
+Patch4: 0004-common-Support-a-stateless-configuration-for-etc-lig.patch
 
 %description
 No detailed description available
@@ -129,6 +130,7 @@ locales components for the lightdm package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export LANG=C
