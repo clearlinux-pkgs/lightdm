@@ -4,18 +4,19 @@
 #
 Name     : lightdm
 Version  : 1.18.3
-Release  : 8
+Release  : 9
 URL      : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source0  : https://launchpad.net/lightdm/1.18/1.18.3/+download/lightdm-1.18.3.tar.xz
 Source1  : lightdm.service
 Source2  : lightdm.tmpfiles
 Summary  : LightDM client library
 Group    : Development/Tools
-License  : GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-3.0
+License  : GPL-3.0 LGPL-2.0 LGPL-3.0
 Requires: lightdm-bin
 Requires: lightdm-config
-Requires: lightdm-lib
+Requires: lightdm-autostart
 Requires: lightdm-data
+Requires: lightdm-lib
 Requires: lightdm-doc
 Requires: lightdm-locales
 BuildRequires : Linux-PAM-dev
@@ -52,6 +53,14 @@ Patch4: 0004-common-Support-a-stateless-configuration-for-etc-lig.patch
 
 %description
 No detailed description available
+
+%package autostart
+Summary: autostart components for the lightdm package.
+Group: Default
+
+%description autostart
+autostart components for the lightdm package.
+
 
 %package bin
 Summary: bin components for the lightdm package.
@@ -134,10 +143,12 @@ locales components for the lightdm package.
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1491324718
 %reconfigure --disable-static --with-greeter-session=lightdm-gtk-greeter
 make V=1  %{?_smp_mflags}
 
 %install
+export SOURCE_DATE_EPOCH=1491324718
 rm -rf %{buildroot}
 %make_install
 %find_lang lightdm
@@ -153,6 +164,10 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 
 %files
 %defattr(-,root,root,-)
+
+%files autostart
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/graphical.target.wants/lightdm.service
 
 %files bin
 %defattr(-,root,root,-)
@@ -170,10 +185,11 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 
 %files data
 %defattr(-,root,root,-)
+/usr/lib64/girepository-1.0/LightDM-1.typelib
 /usr/share/bash-completion/completions/dm-tool
 /usr/share/bash-completion/completions/lightdm
 /usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf
-/usr/share/gir-1.0/LightDM-1.gir
+/usr/share/gir-1.0/*.gir
 /usr/share/pam.d/lightdm
 /usr/share/pam.d/lightdm-autologin
 /usr/share/pam.d/lightdm-greeter
@@ -188,9 +204,8 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 /usr/include/lightdm-gobject-1/lightdm/session.h
 /usr/include/lightdm-gobject-1/lightdm/system.h
 /usr/include/lightdm-gobject-1/lightdm/user.h
-/usr/lib64/*.so
-/usr/lib64/girepository-1.0/LightDM-1.typelib
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/liblightdm-gobject-1.so
+/usr/lib64/pkgconfig/liblightdm-gobject-1.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -221,8 +236,9 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
+/usr/lib64/liblightdm-gobject-1.so.0
+/usr/lib64/liblightdm-gobject-1.so.0.0.0
 
-%files locales -f lightdm.lang 
+%files locales -f lightdm.lang
 %defattr(-,root,root,-)
 
