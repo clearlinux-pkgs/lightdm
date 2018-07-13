@@ -1,1 +1,4 @@
 --with-greeter-session=lightdm-gtk-greeter
+--enable-liblightdm-qt=no
+--enable-liblightdm-qt5=no
+--disable-tests

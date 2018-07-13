@@ -1,0 +1,70 @@
+From f6323dabebb1e37147127ba6f6a5a72b01cb6f4c Mon Sep 17 00:00:00 2001
+From: Ikey Doherty <michael.i.doherty@intel.com>
+Date: Wed, 7 Sep 2016 14:49:02 +0100
+Subject: [PATCH 2/3] Use Clear Linux stateless directories by default
+
+This will ensure that both PAM and D-BUS work for LightDM out of the box
+within Clear Linux
+
+Also:
+
+* Do not install init script
+* Install defaults config files to /usr/share/defaults
+* Drop apparmor
+
+Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+Signed-off-by: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
+---
+ data/Makefile.am | 23 ++++-------------------
+ 1 file changed, 4 insertions(+), 19 deletions(-)
+
+diff --git a/data/Makefile.am b/data/Makefile.am
+index 732897e3..18db1761 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -1,13 +1,10 @@
+-initdir = ${sysconfdir}/init
+-dist_init_DATA = init/lightdm.conf
+-
+-confdir = $(sysconfdir)/lightdm
++confdir = $(datadir)/defaults/lightdm
+ dist_conf_DATA = lightdm.conf users.conf keys.conf
+ 
+-dbusconfdir = $(sysconfdir)/dbus-1/system.d
++dbusconfdir = $(datadir)/dbus-1/system.d
+ dist_dbusconf_DATA = org.freedesktop.DisplayManager.conf
+ 
+-pamdir = $(sysconfdir)/pam.d
++pamdir = $(datadir)/pam.d
+ dist_pam_DATA = pam/lightdm \
+                 pam/lightdm-autologin \
+                 pam/lightdm-greeter
+@@ -15,18 +12,6 @@ dist_pam_DATA = pam/lightdm \
+ completionsdir = $(datadir)/bash-completion/completions
+ dist_completions_DATA = bash-completion/dm-tool bash-completion/lightdm
+ 
+-lightdm-guest-session: $(srcdir)/apparmor/lightdm-guest-session.in
+-	sed -e 's|@libexecdir[@]|$(libexecdir)|g' $< >$@
+-
+-apparmor_profiledir = $(sysconfdir)/apparmor.d
+-apparmor_profile_DATA = \
+-    lightdm-guest-session
+-
+-apparmor_profile_abstractionsdir = $(apparmor_profiledir)/abstractions
+-dist_apparmor_profile_abstractions_DATA = \
+-    apparmor/abstractions/lightdm \
+-    apparmor/abstractions/lightdm_chromium-browser
+-
+ accountsservice_interface = org.freedesktop.DisplayManager.AccountsService.xml
+ 
+ dbusdir = $(datadir)/dbus-1/interfaces
+@@ -46,5 +31,5 @@ polkit_DATA = $(polkit_in_files:.policy.in=.policy)
+ dist_man1_MANS = dm-tool.1 \
+                  lightdm.1
+ 
+-EXTRA_DIST = apparmor/lightdm-guest-session.in $(polkit_in_files)
++EXTRA_DIST = $(polkit_in_files)
+ CLEANFILES = lightdm-guest-session $(polkit_DATA)
+-- 
+2.18.0
+
