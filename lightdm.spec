@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.26.0
-Release  : 11
+Release  : 12
 URL      : https://github.com/CanonicalLtd/lightdm/archive/1.26.0.tar.gz
 Source0  : https://github.com/CanonicalLtd/lightdm/archive/1.26.0.tar.gz
 Source1  : lightdm.service
@@ -50,6 +50,7 @@ BuildRequires : pkgconfig(libxklavier)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xcb)
 BuildRequires : pkgconfig(xdmcp)
+BuildRequires : vala
 Patch1: 0001-Disable-building-of-unused-yelp-documentation.patch
 Patch2: 0002-Use-Clear-Linux-stateless-directories-by-default.patch
 Patch3: 0003-common-Support-a-stateless-configuration-for-etc-lig.patch
@@ -167,7 +168,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532082738
+export SOURCE_DATE_EPOCH=1532084091
 %autogen --disable-static --with-greeter-session=lightdm-gtk-greeter \
 --enable-liblightdm-qt=no \
 --enable-liblightdm-qt5=no \
@@ -175,7 +176,7 @@ export SOURCE_DATE_EPOCH=1532082738
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1532082738
+export SOURCE_DATE_EPOCH=1532084091
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/lightdm
 cp COPYING.LGPL3 %{buildroot}/usr/share/doc/lightdm/COPYING.LGPL3
