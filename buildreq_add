@@ -3,7 +3,7 @@
 audit-dev
 gobject-introspection-dev
 gobject-introspection
-intltool
+intltool-dev
 Linux-PAM-dev
 libgcrypt-dev
 libgpg-error-dev
