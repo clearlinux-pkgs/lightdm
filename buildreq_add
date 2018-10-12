@@ -1,11 +1,10 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
 audit-dev
-gobject-introspection-dev
 gobject-introspection
+gobject-introspection-dev
 intltool-dev
-Linux-PAM-dev
 libgcrypt-dev
 libgpg-error-dev
-itstool
+Linux-PAM-dev
 vala
