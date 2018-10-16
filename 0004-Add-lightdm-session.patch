@@ -1,0 +1,86 @@
+From 6d7ce8fe895e37b66814899f6db737c50d1b5fe6 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 16 Oct 2018 15:15:46 -0700
+Subject: [PATCH] Add lightdm-session.
+
+A simple wrapper for lightdm to start sessions. Nothing more than
+a script that launches the Exec= part of the session and adds a few
+legacy xinit type things.
+---
+ lightdm-session | 64 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+ create mode 100644 lightdm-session
+
+diff --git a/lightdm-session b/lightdm-session
+new file mode 100644
+index 0000000..4a2a25e
+--- /dev/null
++++ b/lightdm-session
+@@ -0,0 +1,64 @@
++#!/bin/sh
++#
++# LightDM wrapper to run around X sessions.
++
++echo "Running X session wrapper"
++
++# Load profile
++for file in "/etc/profile" "$HOME/.profile" "/etc/xprofile" "$HOME/.xprofile"; do
++    if [ -f "$file" ]; then
++        echo "Loading profile from $file";
++        . "$file"
++    fi
++done
++
++# Load resources
++for file in "/etc/X11/Xresources" "$HOME/.Xresources"; do
++    if [ -f "$file" ]; then
++        echo "Loading resource: $file"
++        xrdb -merge "$file"
++    fi
++done
++
++# Load keymaps
++for file in "/etc/X11/Xkbmap" "$HOME/.Xkbmap"; do
++    if [ -f "$file" ]; then
++        echo "Loading keymap: $file"
++        setxkbmap `cat "$file"`
++        XKB_IN_USE=yes
++    fi
++done
++
++# Load xmodmap if not using XKB
++if [ -z "$XKB_IN_USE" ]; then
++    for file in "/etc/X11/Xmodmap" "$HOME/.Xmodmap"; do
++        if [ -f "$file" ]; then
++           echo "Loading modmap: $file"
++           xmodmap "$file"
++        fi
++    done
++fi
++
++unset XKB_IN_USE
++
++# Run all system xinitrc shell scripts
++xinitdir="/etc/X11/xinit/xinitrc.d"
++if [ -d "$xinitdir" ]; then
++    for script in $xinitdir/*; do
++        echo "Loading xinit script $script"
++        if [ -x "$script" -a ! -d "$script" ]; then
++            . "$script"
++        fi
++    done
++fi
++
++# Run user xsession shell script
++script="$HOME/.xsession"
++if [ -x "$script" -a ! -d "$script" ]; then
++    echo "Loading xsession script $script"
++    . "$script"
++fi
++
++echo "X session wrapper complete, running session $@"
++
++exec $@
+-- 
+2.19.1
+

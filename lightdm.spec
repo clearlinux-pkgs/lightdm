@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.28.0
-Release  : 7
+Release  : 8
 URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz
 Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz
 Source1  : lightdm.service
@@ -54,6 +54,7 @@ BuildRequires : vala
 Patch1: 0001-Disable-building-of-unused-yelp-documentation.patch
 Patch2: 0002-Use-Clear-Linux-stateless-directories-by-default.patch
 Patch3: 0003-common-Support-a-stateless-configuration-for-etc-lig.patch
+Patch4: 0004-Add-lightdm-session.patch
 
 %description
 No detailed description available
@@ -172,13 +173,14 @@ man components for the lightdm package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539714104
+export SOURCE_DATE_EPOCH=1539728381
 %reconfigure --disable-static --with-greeter-session=lightdm-gtk-greeter \
 --enable-liblightdm-qt=no \
 --enable-liblightdm-qt5=no \
@@ -186,7 +188,7 @@ export SOURCE_DATE_EPOCH=1539714104
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1539714104
+export SOURCE_DATE_EPOCH=1539728381
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lightdm
 cp COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.GPL3
@@ -202,6 +204,7 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/lightdm.conf
 install -D -d -m 00755 %{buildroot}/usr/lib/systemd/system/graphical.target.wants
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/displaymanager.service
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.wants/lightdm.service
+install -D -m0755 lightdm-session %{buildroot}/usr/bin/lightdm-session
 ## install_append end
 
 %files
@@ -215,6 +218,7 @@ ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.w
 %defattr(-,root,root,-)
 /usr/bin/dm-tool
 /usr/bin/lightdm
+/usr/bin/lightdm-session
 
 %files config
 %defattr(-,root,root,-)

@@ -1,3 +1,4 @@
 0001-Disable-building-of-unused-yelp-documentation.patch
 0002-Use-Clear-Linux-stateless-directories-by-default.patch
 0003-common-Support-a-stateless-configuration-for-etc-lig.patch
+0004-Add-lightdm-session.patch

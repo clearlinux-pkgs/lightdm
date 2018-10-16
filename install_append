@@ -1,3 +1,4 @@
 install -D -d -m 00755 %{buildroot}/usr/lib/systemd/system/graphical.target.wants
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/displaymanager.service
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.wants/lightdm.service
+install -D -m0755 lightdm-session %{buildroot}/usr/bin/lightdm-session
