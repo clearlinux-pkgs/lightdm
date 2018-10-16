@@ -4,7 +4,7 @@
 #
 Name     : lightdm
 Version  : 1.28.0
-Release  : 6
+Release  : 7
 URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz
 Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz
 Source1  : lightdm.service
@@ -12,7 +12,6 @@ Source2  : lightdm.tmpfiles
 Summary  : LightDM client library
 Group    : Development/Tools
 License  : GPL-3.0 LGPL-2.0 LGPL-3.0
-Requires: lightdm-autostart = %{version}-%{release}
 Requires: lightdm-bin = %{version}-%{release}
 Requires: lightdm-config = %{version}-%{release}
 Requires: lightdm-data = %{version}-%{release}
@@ -179,7 +178,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539369780
+export SOURCE_DATE_EPOCH=1539714104
 %reconfigure --disable-static --with-greeter-session=lightdm-gtk-greeter \
 --enable-liblightdm-qt=no \
 --enable-liblightdm-qt5=no \
@@ -187,7 +186,7 @@ export SOURCE_DATE_EPOCH=1539369780
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1539369780
+export SOURCE_DATE_EPOCH=1539714104
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lightdm
 cp COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.GPL3
