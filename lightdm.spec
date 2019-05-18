@@ -5,14 +5,14 @@
 # Source0 file verified with key 0x18EAA1890F7C882E (robert.ancell@gmail.com)
 #
 Name     : lightdm
-Version  : 1.28.0
-Release  : 10
-URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz
-Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz
+Version  : 1.30.0
+Release  : 11
+URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
+Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source1  : lightdm.service
 Source2  : lightdm.tmpfiles
-Source99 : https://github.com/CanonicalLtd/lightdm/releases/download/1.28.0/lightdm-1.28.0.tar.xz.asc
-Summary  : LightDM client library
+Source99 : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz.asc
+Summary  : A lightweight display manager
 Group    : Development/Tools
 License  : GPL-3.0 LGPL-2.0 LGPL-3.0
 Requires: lightdm-bin = %{version}-%{release}
@@ -31,7 +31,6 @@ BuildRequires : automake-dev
 BuildRequires : docbook-xml
 BuildRequires : gettext
 BuildRequires : gettext-bin
-BuildRequires : glibc-bin
 BuildRequires : gobject-introspection
 BuildRequires : gobject-introspection-dev
 BuildRequires : gtk-doc
@@ -78,7 +77,6 @@ Requires: lightdm-data = %{version}-%{release}
 Requires: lightdm-libexec = %{version}-%{release}
 Requires: lightdm-config = %{version}-%{release}
 Requires: lightdm-license = %{version}-%{release}
-Requires: lightdm-man = %{version}-%{release}
 Requires: lightdm-services = %{version}-%{release}
 
 %description bin
@@ -108,6 +106,8 @@ Requires: lightdm-lib = %{version}-%{release}
 Requires: lightdm-bin = %{version}-%{release}
 Requires: lightdm-data = %{version}-%{release}
 Provides: lightdm-devel = %{version}-%{release}
+Requires: lightdm = %{version}-%{release}
+Requires: lightdm = %{version}-%{release}
 
 %description dev
 dev components for the lightdm package.
@@ -184,7 +184,7 @@ services components for the lightdm package.
 
 
 %prep
-%setup -q -n lightdm-1.28.0
+%setup -q -n lightdm-1.30.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -195,7 +195,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1545274667
+export SOURCE_DATE_EPOCH=1558208558
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %reconfigure --disable-static --with-greeter-session=lightdm-gtk-greeter \
 --enable-liblightdm-qt=no \
 --enable-liblightdm-qt5=no \
@@ -203,7 +210,7 @@ export SOURCE_DATE_EPOCH=1545274667
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1545274667
+export SOURCE_DATE_EPOCH=1558208558
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lightdm
 cp COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.GPL3
@@ -227,7 +234,7 @@ install -D -m0755 lightdm-session %{buildroot}/usr/bin/lightdm-session
 
 %files autostart
 %defattr(-,root,root,-)
-/usr/lib/systemd/system/graphical.target.wants/lightdm.service
+%exclude /usr/lib/systemd/system/graphical.target.wants/lightdm.service
 
 %files bin
 %defattr(-,root,root,-)
