@@ -2,3 +2,4 @@ install -D -d -m 00755 %{buildroot}/usr/lib/systemd/system/graphical.target.want
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/displaymanager.service
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.wants/lightdm.service
 install -D -m0755 lightdm-session %{buildroot}/usr/bin/lightdm-session
+mv %{buildroot}/usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf %{buildroot}/usr/share/dbus-1/system.d/lightdm_org.freedesktop.DisplayManager.conf

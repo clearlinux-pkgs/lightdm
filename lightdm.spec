@@ -6,13 +6,13 @@
 #
 Name     : lightdm
 Version  : 1.30.0
-Release  : 11
+Release  : 12
 URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source1  : lightdm.service
 Source2  : lightdm.tmpfiles
 Source99 : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz.asc
-Summary  : A lightweight display manager
+Summary  : LightDM client library
 Group    : Development/Tools
 License  : GPL-3.0 LGPL-2.0 LGPL-3.0
 Requires: lightdm-bin = %{version}-%{release}
@@ -107,7 +107,6 @@ Requires: lightdm-bin = %{version}-%{release}
 Requires: lightdm-data = %{version}-%{release}
 Provides: lightdm-devel = %{version}-%{release}
 Requires: lightdm = %{version}-%{release}
-Requires: lightdm = %{version}-%{release}
 
 %description dev
 dev components for the lightdm package.
@@ -195,7 +194,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1558208558
+export SOURCE_DATE_EPOCH=1558735074
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -210,7 +210,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1558208558
+export SOURCE_DATE_EPOCH=1558735074
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lightdm
 cp COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.GPL3
@@ -227,6 +227,7 @@ install -D -d -m 00755 %{buildroot}/usr/lib/systemd/system/graphical.target.want
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/displaymanager.service
 ln -sv ../lightdm.service %{buildroot}/usr/lib/systemd/system/graphical.target.wants/lightdm.service
 install -D -m0755 lightdm-session %{buildroot}/usr/bin/lightdm-session
+mv %{buildroot}/usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf %{buildroot}/usr/share/dbus-1/system.d/lightdm_org.freedesktop.DisplayManager.conf
 ## install_append end
 
 %files
@@ -248,12 +249,12 @@ install -D -m0755 lightdm-session %{buildroot}/usr/bin/lightdm-session
 
 %files data
 %defattr(-,root,root,-)
-%exclude /usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 /usr/lib64/girepository-1.0/LightDM-1.typelib
 /usr/share/accountsservice/interfaces/org.freedesktop.DisplayManager.AccountsService.xml
 /usr/share/bash-completion/completions/dm-tool
 /usr/share/bash-completion/completions/lightdm
 /usr/share/dbus-1/interfaces/org.freedesktop.DisplayManager.AccountsService.xml
+/usr/share/dbus-1/system.d/lightdm_org.freedesktop.DisplayManager.conf
 /usr/share/defaults/lightdm/keys.conf
 /usr/share/defaults/lightdm/lightdm.conf
 /usr/share/defaults/lightdm/users.conf
