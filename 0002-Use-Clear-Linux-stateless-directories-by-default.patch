@@ -1,7 +1,7 @@
-From f6323dabebb1e37147127ba6f6a5a72b01cb6f4c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Wed, 7 Sep 2016 14:49:02 +0100
-Subject: [PATCH 2/3] Use Clear Linux stateless directories by default
+Subject: [PATCH] Use Clear Linux stateless directories by default
 
 This will ensure that both PAM and D-BUS work for LightDM out of the box
 within Clear Linux
@@ -19,7 +19,7 @@ Signed-off-by: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
  1 file changed, 4 insertions(+), 19 deletions(-)
 
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 732897e3..18db1761 100644
+index c9f38f2..a7891d3 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -1,13 +1,10 @@
@@ -66,5 +66,5 @@ index 732897e3..18db1761 100644
 +EXTRA_DIST = $(polkit_in_files)
  CLEANFILES = lightdm-guest-session $(polkit_DATA)
 -- 
-2.18.0
+https://clearlinux.org
 

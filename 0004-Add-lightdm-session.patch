@@ -1,4 +1,4 @@
-From 6d7ce8fe895e37b66814899f6db737c50d1b5fe6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Tue, 16 Oct 2018 15:15:46 -0700
 Subject: [PATCH] Add lightdm-session.
@@ -82,5 +82,5 @@ index 0000000..4a2a25e
 +
 +exec $@
 -- 
-2.19.1
+https://clearlinux.org
 
