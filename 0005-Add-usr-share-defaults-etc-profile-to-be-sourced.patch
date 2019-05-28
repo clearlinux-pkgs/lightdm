@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lucius Hu <orctarorga@gmail.com>
+Date: Mon, 27 May 2019 19:58:22 -0400
+Subject: [PATCH] Add /usr/share/defaults/etc/profile to be sourced
+
+The correct order of profiles to be sourced shall be the default profile
+'/usr/share/defaults/etc/profile', the system admin overrides
+'/etc/profile', and the per-user profile '$HOME/.profile'.
+---
+ lightdm-session | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lightdm-session b/lightdm-session
+index 4a2a25e..6934da9 100644
+--- a/lightdm-session
++++ b/lightdm-session
+@@ -5,7 +5,7 @@
+ echo "Running X session wrapper"
+ 
+ # Load profile
+-for file in "/etc/profile" "$HOME/.profile" "/etc/xprofile" "$HOME/.xprofile"; do
++for file in "/usr/share/defaults/etc/profile" "/etc/profile" "$HOME/.profile" "/etc/xprofile" "$HOME/.xprofile"; do
+     if [ -f "$file" ]; then
+         echo "Loading profile from $file";
+         . "$file"
+-- 
+https://clearlinux.org
+
