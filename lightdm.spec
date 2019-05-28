@@ -6,7 +6,7 @@
 #
 Name     : lightdm
 Version  : 1.30.0
-Release  : 12
+Release  : 13
 URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source1  : lightdm.service
@@ -58,6 +58,7 @@ Patch1: 0001-Disable-building-of-unused-yelp-documentation.patch
 Patch2: 0002-Use-Clear-Linux-stateless-directories-by-default.patch
 Patch3: 0003-common-Support-a-stateless-configuration-for-etc-lig.patch
 Patch4: 0004-Add-lightdm-session.patch
+Patch5: 0005-Add-usr-share-defaults-etc-profile-to-be-sourced.patch
 
 %description
 No detailed description available
@@ -188,13 +189,14 @@ services components for the lightdm package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1558735074
+export SOURCE_DATE_EPOCH=1559063592
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -210,7 +212,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1558735074
+export SOURCE_DATE_EPOCH=1559063592
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lightdm
 cp COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.GPL3
