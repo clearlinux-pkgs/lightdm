@@ -6,7 +6,7 @@
 #
 Name     : lightdm
 Version  : 1.30.0
-Release  : 14
+Release  : 15
 URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source1  : lightdm.service
