@@ -6,12 +6,12 @@
 #
 Name     : lightdm
 Version  : 1.30.0
-Release  : 15
+Release  : 16
 URL      : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source0  : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz
 Source1  : lightdm.service
 Source2  : lightdm.tmpfiles
-Source3 : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz.asc
+Source3  : https://github.com/CanonicalLtd/lightdm/releases/download/1.30.0/lightdm-1.30.0.tar.xz.asc
 Summary  : LightDM client library
 Group    : Development/Tools
 License  : GPL-3.0 LGPL-2.0 LGPL-3.0
@@ -177,6 +177,7 @@ services components for the lightdm package.
 
 %prep
 %setup -q -n lightdm-1.30.0
+cd %{_builddir}/lightdm-1.30.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -188,14 +189,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570485349
+export SOURCE_DATE_EPOCH=1605558100
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %reconfigure --disable-static --with-greeter-session=lightdm-gtk-greeter \
 --enable-liblightdm-qt=no \
@@ -204,12 +205,12 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1570485349
+export SOURCE_DATE_EPOCH=1605558100
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lightdm
-cp COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.GPL3
-cp COPYING.LGPL2 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.LGPL2
-cp COPYING.LGPL3 %{buildroot}/usr/share/package-licenses/lightdm/COPYING.LGPL3
+cp %{_builddir}/lightdm-1.30.0/COPYING.GPL3 %{buildroot}/usr/share/package-licenses/lightdm/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+cp %{_builddir}/lightdm-1.30.0/COPYING.LGPL2 %{buildroot}/usr/share/package-licenses/lightdm/ba8966e2473a9969bdcab3dc82274c817cfd98a1
+cp %{_builddir}/lightdm-1.30.0/COPYING.LGPL3 %{buildroot}/usr/share/package-licenses/lightdm/f45ee1c765646813b442ca58de72e20a64a7ddba
 %make_install
 %find_lang lightdm
 mkdir -p %{buildroot}/usr/lib/systemd/system
@@ -309,9 +310,9 @@ mv %{buildroot}/usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf %{
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/lightdm/COPYING.GPL3
-/usr/share/package-licenses/lightdm/COPYING.LGPL2
-/usr/share/package-licenses/lightdm/COPYING.LGPL3
+/usr/share/package-licenses/lightdm/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+/usr/share/package-licenses/lightdm/ba8966e2473a9969bdcab3dc82274c817cfd98a1
+/usr/share/package-licenses/lightdm/f45ee1c765646813b442ca58de72e20a64a7ddba
 
 %files man
 %defattr(0644,root,root,0755)
