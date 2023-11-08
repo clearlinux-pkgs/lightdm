@@ -1,8 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Ikey Doherty <michael.i.doherty@intel.com>
-Date: Thu, 8 Sep 2016 14:32:54 +0100
-Subject: [PATCH] common: Support a stateless configuration for
- /etc/lightdm/users.conf
+From b17cd165979e0fa8240d6c42a57694870e0e249e Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 8 Nov 2023 13:55:40 -0800
+Subject: [PATCH 3/5] common: Support a stateless /etc/lightdm/users.conf
 
 With this change we can support both the admin-defined users.conf, as well
 as a vendor-provided users.conf in /usr/share/defaults/lightdm/. This will
@@ -15,15 +14,16 @@ of the vendor-config.
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 Signed-off-by: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
+Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
  common/user-list.c | 15 ++++++++++++---
  1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/common/user-list.c b/common/user-list.c
-index b3d6d9e..51f0f93 100644
+index fc04a12..53027a5 100644
 --- a/common/user-list.c
 +++ b/common/user-list.c
-@@ -168,6 +168,7 @@ G_DEFINE_TYPE (CommonSession, common_session, G_TYPE_OBJECT)
+@@ -165,6 +165,7 @@ G_DEFINE_TYPE (CommonSession, common_session, G_TYPE_OBJECT)
  
  #define PASSWD_FILE      "/etc/passwd"
  #define USER_CONFIG_FILE "/etc/lightdm/users.conf"
@@ -31,9 +31,9 @@ index b3d6d9e..51f0f93 100644
  
  static CommonUserList *singleton = NULL;
  
-@@ -324,13 +325,21 @@ load_passwd_file (CommonUserList *user_list, gboolean emit_add_signal)
+@@ -323,13 +324,21 @@ load_passwd_file (CommonUserList *user_list, gboolean emit_add_signal)
  {
-     CommonUserListPrivate *priv = GET_LIST_PRIVATE (user_list);
+     CommonUserListPrivate *priv = common_user_list_get_instance_private (user_list);
  
 -    g_debug ("Loading user config from %s", USER_CONFIG_FILE);
 +    g_autofree gchar *user_config_file = NULL;
@@ -57,5 +57,5 @@ index b3d6d9e..51f0f93 100644
      gint minimum_uid = 500;
      if (g_key_file_has_key (config, "UserList", "minimum-uid", NULL))
 -- 
-https://clearlinux.org
+2.42.1
 

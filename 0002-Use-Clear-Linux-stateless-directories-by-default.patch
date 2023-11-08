@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Ikey Doherty <michael.i.doherty@intel.com>
-Date: Wed, 7 Sep 2016 14:49:02 +0100
-Subject: [PATCH] Use Clear Linux stateless directories by default
+From c89f6e4c3d70f16035c8c3bcd73e352203f041d3 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 8 Nov 2023 13:54:42 -0800
+Subject: [PATCH 2/5] Use Clear Linux stateless directories by default
 
 This will ensure that both PAM and D-BUS work for LightDM out of the box
 within Clear Linux
@@ -14,12 +14,13 @@ Also:
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 Signed-off-by: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
+Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
- data/Makefile.am | 23 ++++-------------------
- 1 file changed, 4 insertions(+), 19 deletions(-)
+ data/Makefile.am | 21 +++------------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
 diff --git a/data/Makefile.am b/data/Makefile.am
-index c9f38f2..a7891d3 100644
+index 7f7b4a3..a7891d3 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -1,13 +1,10 @@
@@ -30,8 +31,7 @@ index c9f38f2..a7891d3 100644
 +confdir = $(datadir)/defaults/lightdm
  dist_conf_DATA = lightdm.conf users.conf keys.conf
  
--dbusconfdir = $(sysconfdir)/dbus-1/system.d
-+dbusconfdir = $(datadir)/dbus-1/system.d
+ dbusconfdir = $(datadir)/dbus-1/system.d
  dist_dbusconf_DATA = org.freedesktop.DisplayManager.conf
  
 -pamdir = $(sysconfdir)/pam.d
@@ -66,5 +66,5 @@ index c9f38f2..a7891d3 100644
 +EXTRA_DIST = $(polkit_in_files)
  CLEANFILES = lightdm-guest-session $(polkit_DATA)
 -- 
-https://clearlinux.org
+2.42.1
 

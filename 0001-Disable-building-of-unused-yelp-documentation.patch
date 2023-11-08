@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From ba5b3a23ed92fdcb5531d8332e4dc30cc41a15c5 Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Wed, 7 Sep 2016 14:57:10 +0100
-Subject: [PATCH] Disable building of unused yelp documentation
+Subject: [PATCH 1/5] Disable building of unused yelp documentation
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 Signed-off-by: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
@@ -12,7 +12,7 @@ Signed-off-by: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
  3 files changed, 1 insertion(+), 9 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index fd252aa..c50ff1a 100644
+index c72c7dd..9a54cfc 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -3,7 +3,7 @@ SUBDIRS = common liblightdm-gobject liblightdm-qt
@@ -43,10 +43,10 @@ index ab1e8aa..85a6dce 100755
      ./configure $@
  fi
 diff --git a/configure.ac b/configure.ac
-index 462bff0..6d2eb3a 100644
+index 29c529c..78e4860 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -222,7 +222,6 @@ dnl Documentation
+@@ -188,7 +188,6 @@ dnl Documentation
  dnl ###########################################################################
  
  GTK_DOC_CHECK
@@ -55,5 +55,5 @@ index 462bff0..6d2eb3a 100644
  dnl ###########################################################################
  dnl Internationalization
 -- 
-https://clearlinux.org
+2.42.1
 

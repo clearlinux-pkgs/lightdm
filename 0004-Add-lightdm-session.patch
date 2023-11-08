@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From a637f1df3c18a050d8d998c1ebb577c7339750b5 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Tue, 16 Oct 2018 15:15:46 -0700
-Subject: [PATCH] Add lightdm-session.
+Subject: [PATCH 4/5] Add lightdm-session.
 
 A simple wrapper for lightdm to start sessions. Nothing more than
 a script that launches the Exec= part of the session and adds a few
@@ -82,5 +82,5 @@ index 0000000..4a2a25e
 +
 +exec $@
 -- 
-https://clearlinux.org
+2.42.1
 
